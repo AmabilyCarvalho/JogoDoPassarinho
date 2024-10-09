@@ -5,7 +5,10 @@
 
 <Grid>
             <Image
-                Source="ceu.webp"
-                Aspect="AspectFill"/>
+                Source="ceu.png"
+                Aspect="AspectFill"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"/>
+
 </Grid>
 </ContentPage>
