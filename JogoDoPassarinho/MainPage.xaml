@@ -1,14 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="JogoDoPassarinho.MainPage">
+             x:Class="JogoDoPassarinho.MainPage"
+             Shell.NavBarIsVisible="False">
 
 <Grid>
-            <Image
-                Source="ceu.png"
+        <Image Source="ceu.png"
                 Aspect="AspectFill"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"/>
+
+        <Image Source="pilarzhonglinormal.png"
+               HorizontalOptions="End"
+               VerticalOptions="End"
+               WidthRequest="180"/>
+
+        <Image Source="paimon.png"
+               x:Name="paimon"
+               WidthRequest="50"
+               HeightRequest="50"/>
+
+        <Image Source="chao.png"
+               x:Name="graminha"
+               VerticalOptions="End"
+               HorizontalOptions="Fill"/>
 
 </Grid>
 </ContentPage>
