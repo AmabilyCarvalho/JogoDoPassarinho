@@ -5,25 +5,61 @@
              Shell.NavBarIsVisible="False">
 
 <Grid>
+       <Grid.GestureRecognizers>
+              <TapGestureRecognizer Tapped="OnGridClicked"/>
+       </Grid.GestureRecognizers>
+
         <Image Source="ceu.png"
                 Aspect="AspectFill"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"/>
 
         <Image Source="pilarzhonglinormal.png"
+               x:Name="pilarnormal"
+               HeightRequest="620"
+               WidthRequest="30"
+               Aspect="AspectFit"
                HorizontalOptions="End"
-               VerticalOptions="End"
-               WidthRequest="180"/>
+               VerticalOptions="End"/>
+
+       <Image Source="pilarzhonglivirado.png"
+               x:Name="pilarvirado"
+               HeightRequest="620"
+               WidthRequest="30"
+               Aspect="AspectFit"
+               HorizontalOptions="End"
+               VerticalOptions="Start"/>
 
         <Image Source="paimon.png"
                x:Name="paimon"
-               WidthRequest="50"
-               HeightRequest="50"/>
+               HeightRequest="110"
+               WidthRequest="80"
+               Margin="30,0,0,0"
+               HorizontalOptions="Start"
+               VerticalOptions="Center"/>
 
         <Image Source="chao.png"
                x:Name="graminha"
-               VerticalOptions="End"
-               HorizontalOptions="Fill"/>
+               HeightRequest="90"
+               Aspect="AspectFill"
+               HorizontalOptions="Center"
+               VerticalOptions="End"/>
 
+       <Frame
+              IsVisible="true"
+            x:Name="FrameGameOver"
+            BackgroundColor="#99000000"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            CornerRadius="0">
+
+       <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Oi"/>
+            </Frame.GestureRecognizers>
+            <Image Source= "play.png"
+             HeightRequest="195"
+            WidthRequest="160"/>
+
+        </Frame>
 </Grid>
 </ContentPage>

@@ -5,9 +5,93 @@ namespace JogoDoPassarinho;
 public partial class MainPage : ContentPage
 {
 
+const int gravidade = 1;
+	const int tempoEntreFrames = 25;
+	bool estaMorto = false;
+	double larguraJanela = 0;
+	double alturaJanela = 0;
+	int velocidade = 20;
+	const int forcaPulo = 30;
+	const int maxTempoPulando = 3;
+	int tempoPulando = 0;
+	bool estaPulando = false;
+	const int aberturaMinima = 200;
+
+
+
 	public MainPage()
 	{
 		InitializeComponent();
+	}
+
+	void GerenciaCanos()
+	{
+		pilarnormal.TranslationX -= velocidade;
+		pilarvirado.TranslationX -= velocidade;
+		if (pilarvirado.TranslationX < -larguraJanela)
+		{
+			pilarvirado.TranslationX = 0;
+			pilarnormal.TranslationX = 0;
+			var alturaMax = -100;
+			var alturaMin = -pilarvirado.HeightRequest;
+			pilarnormal.TranslationY = Random.Shared.Next((int)alturaMin, (int) alturaMax);
+			pilarvirado.TranslationY = pilarnormal.TranslationY + aberturaMinima + pilarvirado.HeightRequest;
+		}
+	}
+
+	protected override void OnSizeAllocated(double w, double h)
+    {
+		base.OnSizeAllocated(w, h);
+		larguraJanela = w;
+		alturaJanela = h;
+	}
+
+	void Inicializar()
+	{
+		paimon.TranslationY = 0;
+	}
+
+	void Oi(object s, TappedEventArgs e)
+	{
+		FrameGameOver.IsVisible = false;
+		estaMorto = false;
+		Inicializar();
+		Desenha();
+	}
+
+	void AplicaGravidade()
+	{
+		paimon.TranslationY += gravidade;
+	}
+
+	void AplicaPulo()
+	{
+		paimon.TranslationY -= forcaPulo;
+		tempoPulando++;
+		if (tempoPulando >= maxTempoPulando)
+		{
+			estaPulando = false;
+			tempoPulando = 0;
+		}
+	}
+
+	public async void Desenha()
+	{
+		while (!estaMorto)
+		{
+			if(estaPulando)
+			  AplicaPulo();
+			else
+			AplicaGravidade();
+			GerenciaCanos();
+			if (VerificaColisao())
+			{
+				estaMorto = true;
+				FrameGameOver.IsVisible = true;
+				break;
+			}
+			await Task.Delay(tempoEntreFrames);
+		}
 	}
 
 	bool VerificaColisao()
@@ -39,19 +123,9 @@ public partial class MainPage : ContentPage
 	else
 		return false;
 	}
-	async Task Desenha()
+
+	void OnGridClicked(object s, TappedEventArgs a)
 	{
-		while (!estaMorto)
-		{
-			AplicaGravidade();
-			GerenciaCanos();
-			if (VerificaColisao())
-			{
-				estaMorto = true;
-				FrameGameOver.IsVisible = true;
-				break;
-			}
-			await Task.Delay(tempoEntreFrames);
-		}
+		estaPulando = true;
 	}
 }
