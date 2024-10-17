@@ -5,7 +5,7 @@ namespace JogoDoPassarinho;
 public partial class MainPage : ContentPage
 {
 
-const int gravidade = 1;
+const int gravidade = 7;
 	const int tempoEntreFrames = 25;
 	bool estaMorto = false;
 	double larguraJanela = 0;
@@ -15,6 +15,7 @@ const int gravidade = 1;
 	const int maxTempoPulando = 3;
 	int tempoPulando = 0;
 	bool estaPulando = false;
+	int score = 0;
 	const int aberturaMinima = 200;
 
 
@@ -36,6 +37,9 @@ const int gravidade = 1;
 			var alturaMin = -pilarvirado.HeightRequest;
 			pilarnormal.TranslationY = Random.Shared.Next((int)alturaMin, (int) alturaMax);
 			pilarvirado.TranslationY = pilarnormal.TranslationY + aberturaMinima + pilarvirado.HeightRequest;
+			score ++;
+			labelScore.Text = "Canos: " + score.ToString("D3");
+			ok.Text = "voce morreu mas passou por " + score.ToString("D3") + " canos tente novamente!";
 		}
 	}
 
@@ -49,6 +53,7 @@ const int gravidade = 1;
 	void Inicializar()
 	{
 		paimon.TranslationY = 0;
+		score = 0;
 	}
 
 	void Oi(object s, TappedEventArgs e)

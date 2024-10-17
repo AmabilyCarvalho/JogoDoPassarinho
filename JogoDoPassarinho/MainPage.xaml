@@ -14,7 +14,7 @@
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"/>
 
-        <Image Source="pilarzhonglinormal.png"
+        <Image Source="pilarvirado.png"
                x:Name="pilarnormal"
                HeightRequest="620"
                WidthRequest="30"
@@ -22,7 +22,7 @@
                HorizontalOptions="End"
                VerticalOptions="End"/>
 
-       <Image Source="pilarzhonglivirado.png"
+       <Image Source="pilarnormal.png"
                x:Name="pilarvirado"
                HeightRequest="620"
                WidthRequest="30"
@@ -45,6 +45,14 @@
                HorizontalOptions="Center"
                VerticalOptions="End"/>
 
+               <Label Text="Canos: "
+                       x:Name="labelScore"
+                       TextColor="Blue"
+                       BackgroundColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"/>
+
+
        <Frame
               IsVisible="true"
             x:Name="FrameGameOver"
@@ -52,6 +60,14 @@
             HorizontalOptions="Fill"
             VerticalOptions="Fill"
             CornerRadius="0">
+       <VerticalStackLayout>
+
+            <Label Text="voce morreu mas passou por 000 canos"
+                       x:Name="ok"
+                       TextColor="White"
+                       Margin="0,100,0,0"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"/>
 
        <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="Oi"/>
@@ -60,6 +76,8 @@
              HeightRequest="195"
             WidthRequest="160"/>
 
+
+       </VerticalStackLayout>
         </Frame>
 </Grid>
 </ContentPage>
