@@ -32,10 +32,9 @@
 
         <Image Source="paimon.png"
                x:Name="paimon"
-               HeightRequest="110"
-               WidthRequest="80"
-               Margin="30,0,0,0"
-               HorizontalOptions="Start"
+               HeightRequest="80"
+               WidthRequest="100"
+               HorizontalOptions="Center"
                VerticalOptions="Center"/>
 
         <Image Source="chao.png"
