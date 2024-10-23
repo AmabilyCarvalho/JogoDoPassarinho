@@ -6,7 +6,7 @@
 
 <Grid>
        <Grid.GestureRecognizers>
-              <TapGestureRecognizer Tapped="OnGridClicked"/>
+       <TapGestureRecognizer Tapped="OnGridClicked"/>
        </Grid.GestureRecognizers>
 
         <Image Source="ceu.png"
@@ -59,24 +59,23 @@
             HorizontalOptions="Fill"
             VerticalOptions="Fill"
             CornerRadius="0">
-       <VerticalStackLayout>
 
-            <Label Text="voce morreu mas passou por 000 canos"
+               <Image Source= "play.png"
+                HeightRequest="195"
+                WidthRequest="160"/>
+
+       <Label Text="voce passou por 000 canos"
                        x:Name="ok"
                        TextColor="White"
                        Margin="0,100,0,0"
                        HorizontalOptions="Center"
                        VerticalOptions="Start"/>
 
+
+
        <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="Oi"/>
             </Frame.GestureRecognizers>
-            <Image Source= "play.png"
-             HeightRequest="195"
-            WidthRequest="160"/>
-
-
-       </VerticalStackLayout>
         </Frame>
 </Grid>
 </ContentPage>

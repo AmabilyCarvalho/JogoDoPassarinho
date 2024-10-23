@@ -10,7 +10,7 @@ public partial class MainPage : ContentPage
 	bool estaMorto = false;
 	double larguraJanela = 0;
 	double alturaJanela = 0;
-	int velocidade = 20;
+	int velocidade = 10;
 	const int forcaPulo = 30;
 	const int maxTempoPulando = 3;
 	int tempoPulando = 0;
@@ -33,13 +33,13 @@ public partial class MainPage : ContentPage
 		{
 			pilarvirado.TranslationX = 0;
 			pilarnormal.TranslationX = 0;
-			var alturaMax = -100;
+			var alturaMax = -300;
 			var alturaMin = -pilarvirado.HeightRequest;
 			pilarnormal.TranslationY = Random.Shared.Next((int)alturaMin, (int)alturaMax);
 			pilarvirado.TranslationY = pilarnormal.TranslationY + aberturaMinima + pilarvirado.HeightRequest;
 			score++;
 			labelScore.Text = "Canos: " + score.ToString("D3");
-			ok.Text = "voce morreu mas passou por " + score.ToString("D3") + " canos tente novamente!";
+			ok.Text = "voce passou por " + score.ToString("D3");
 		}
 	}
 
@@ -106,18 +106,10 @@ public partial class MainPage : ContentPage
 
 	bool VerificaColisao()
    {
-		if(!estaMorto)
-
-	
-	{
-	if(VerificaColisaoTeto() ||
+	return VerificaColisaoTeto() ||
 	   VerificaColisaoChao() ||
-	   VerificaColisaopilarnormal())
-	   {
-		return true;
-	   }
-    }
-		return false;
+	   VerificaColisaopilarnormal() ||
+	   VerificaColisaopilarvirado();
  }
 	bool VerificaColisaoTeto()
 {
@@ -156,4 +148,21 @@ bool VerificaColisaopilarnormal()
 			return false;
 		}
 	}
+
+bool VerificaColisaopilarvirado()
+{
+	var posVpaimon = (larguraJanela / 2) - (paimon.WidthRequest / 2);
+	var posHpaimon = (alturaJanela / 2) + (paimon.HeightRequest/2) + paimon.TranslationY;
+	var yMaxPilar = pilarvirado.HeightRequest + pilarvirado.TranslationY + aberturaMinima;
+	if(posHpaimon >= Math.Abs(pilarvirado.TranslationX) - pilarvirado.WidthRequest&&
+	posHpaimon <= Math.Abs(pilarvirado.TranslationX) - pilarvirado.WidthRequest&&
+	posVpaimon >= yMaxPilar)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+  }
 }
