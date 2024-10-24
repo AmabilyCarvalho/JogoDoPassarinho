@@ -7,7 +7,7 @@ public partial class MainPage : ContentPage
 
 	const int gravidade = 4;
 	const int tempoEntreFrames = 25;
-	bool estaMorto = false;
+	bool estaMorto = true;
 	double larguraJanela = 0;
 	double alturaJanela = 0;
 	int velocidade = 10;
@@ -27,9 +27,9 @@ public partial class MainPage : ContentPage
 
 	void GerenciaCanos()
 	{
-		pilarnormal.TranslationX -= velocidade;
 		pilarvirado.TranslationX -= velocidade;
-		if (pilarvirado.TranslationX < -larguraJanela)
+		pilarnormal.TranslationX -= velocidade;
+		if (pilarnormal.TranslationX < -larguraJanela)
 		{
 			pilarvirado.TranslationX = 0;
 			pilarnormal.TranslationX = 0;
@@ -48,6 +48,11 @@ public partial class MainPage : ContentPage
 		base.OnSizeAllocated(w, h);
 		larguraJanela = w;
 		alturaJanela = h;
+		if (h > 0)
+		{
+			pilarnormal.HeightRequest = h - graminha.HeightRequest;
+			pilarvirado.HeightRequest = h - graminha.HeightRequest;
+		}
 	}
 
 	void Inicializar()
@@ -58,7 +63,7 @@ public partial class MainPage : ContentPage
 		paimon.TranslationY = 0;
 		score = 0;
 		GerenciaCanos();
-	
+
 	}
 
 	void Oi(object s, TappedEventArgs e)
@@ -105,40 +110,19 @@ public partial class MainPage : ContentPage
 	}
 
 	bool VerificaColisao()
-   {
-	return VerificaColisaoTeto() ||
-	   VerificaColisaoChao() ||
-	   VerificaColisaopilarnormal() ||
-	   VerificaColisaopilarvirado();
- }
-	bool VerificaColisaoTeto()
-{
-	var minY = -alturaJanela / 2;
-	if (paimon.TranslationY <= minY)
-		return true;
-	else
-		return false;
-}
-bool VerificaColisaoChao()
-{
-	var maxY = alturaJanela / 2 - graminha.HeightRequest;
-	if (paimon.TranslationY >= maxY)
-		return true;
-	else
-		return false;
-}
+	{
+		return VerificaColisaoTeto() ||
+		   VerificaColisaoChao() ||
+		   VerificaColisaopilarnormal() ||
+		   VerificaColisaopilarvirado();
+	}
 
-void OnGridClicked(object s, TappedEventArgs a)
-{
-	estaPulando = true;
-}
-
-bool VerificaColisaopilarnormal()
-   {
-	var posHpaimon = (larguraJanela / 2) - (paimon.WidthRequest / 2);
-	var posVpaimon =  (alturaJanela/2) - (paimon.HeightRequest/2) + paimon.TranslationY;
-		if (posHpaimon >= Math.Abs(pilarnormal.TranslationX) - pilarnormal.WidthRequest&&
-		posHpaimon <= Math.Abs(pilarnormal.TranslationX) + pilarvirado.WidthRequest&&
+	bool VerificaColisaopilarnormal()
+	{
+		var posHpaimon = (larguraJanela / - 50) - (paimon.WidthRequest / 2);
+		var posVpaimon = (alturaJanela / 2) - (paimon.HeightRequest / 2) + paimon.TranslationY;
+		if (posHpaimon >= Math.Abs(pilarvirado.TranslationX) - pilarnormal.WidthRequest &&
+		posHpaimon <= Math.Abs(pilarvirado.TranslationX) + pilarnormal.WidthRequest &&
 		posVpaimon <= pilarnormal.HeightRequest + pilarnormal.TranslationY)
 		{
 			return true;
@@ -147,22 +131,44 @@ bool VerificaColisaopilarnormal()
 		{
 			return false;
 		}
+		
 	}
 
-bool VerificaColisaopilarvirado()
-{
-	var posVpaimon = (larguraJanela / 2) - (paimon.WidthRequest / 2);
-	var posHpaimon = (alturaJanela / 2) + (paimon.HeightRequest/2) + paimon.TranslationY;
-	var yMaxPilar = pilarvirado.HeightRequest + pilarvirado.TranslationY + aberturaMinima;
-	if(posHpaimon >= Math.Abs(pilarvirado.TranslationX) - pilarvirado.WidthRequest&&
-	posHpaimon <= Math.Abs(pilarvirado.TranslationX) - pilarvirado.WidthRequest&&
-	posVpaimon >= yMaxPilar)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	bool VerificaColisaopilarvirado()
+  {
+    var posicaoHpaimon = larguraJanela - 50 - paimon.WidthRequest / 2;
+    var posicaoVpaimon   = (alturaJanela / 2) + (paimon.HeightRequest / 2) + paimon.TranslationY;
+    var yMaxCano = pilarvirado.HeightRequest + pilarvirado.TranslationY + aberturaMinima;
+
+    if (
+         posicaoHpaimon >= Math.Abs(pilarvirado.TranslationX) - pilarvirado.WidthRequest &&
+         posicaoHpaimon <= Math.Abs(pilarvirado.TranslationX) + pilarvirado.WidthRequest &&
+         posicaoVpaimon >= yMaxCano
+       )
+      return true;
+    else
+      return false;
   }
+	bool VerificaColisaoTeto()
+	{
+		var minY = -alturaJanela / 2;
+		if (paimon.TranslationY <= minY)
+			return true;
+		else
+			return false;
+	}
+	bool VerificaColisaoChao()
+	{
+		var maxY = alturaJanela / 2 - graminha.HeightRequest;
+		if (paimon.TranslationY >= maxY)
+			return true;
+		else
+			return false;
+	}
+
+	void OnGridClicked(object s, TappedEventArgs a)
+	{
+		estaPulando = true;
+	}
+
 }

@@ -60,9 +60,8 @@
             VerticalOptions="Fill"
             CornerRadius="0">
 
-               <Image Source= "play.png"
-                HeightRequest="195"
-                WidthRequest="160"/>
+      <VerticalStackLayout>
+               
 
        <Label Text="voce passou por 000 canos"
                        x:Name="ok"
@@ -71,9 +70,12 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Start"/>
 
+       <Image Source= "play.png"
+                HeightRequest="195"
+                WidthRequest="160"/>
 
-
-       <Frame.GestureRecognizers>
+       </VerticalStackLayout>
+            <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="Oi"/>
             </Frame.GestureRecognizers>
         </Frame>
