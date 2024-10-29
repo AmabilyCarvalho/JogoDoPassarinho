@@ -15,7 +15,7 @@
                 VerticalOptions="Fill"/>
 
         <Image Source="pilarvirado.png"
-               x:Name="pilarnormal"
+               x:Name="pilarvirado"
                HeightRequest="620"
                WidthRequest="30"
                Aspect="AspectFit"
@@ -23,7 +23,7 @@
                VerticalOptions="End"/>
 
        <Image Source="pilarnormal.png"
-               x:Name="pilarvirado"
+               x:Name="pilarnormal"
                HeightRequest="620"
                WidthRequest="30"
                Aspect="AspectFit"
