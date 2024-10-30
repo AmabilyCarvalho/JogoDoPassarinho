@@ -25,7 +25,13 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-void AplicaGravidade()
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+		SoundHelper.Play("fundo.wav", true);
+    }
+
+    void AplicaGravidade()
 	{
 		paimon.TranslationY += gravidade;
 	}
@@ -39,7 +45,7 @@ void AplicaGravidade()
 			else
 				AplicaGravidade();
 			GerenciaCanos();
-			if (VerificaColisaoCanos())
+			if (VerificaColisaoCano())
 			{
 				estaMorto = true;
 				FrameGameOver.IsVisible = true;
@@ -86,8 +92,8 @@ protected override void OnSizeAllocated(double w, double h)
       pilarvirado.TranslationX = 0;
       pilarnormal.TranslationX = 0;
 
-      var alturaMaxima = -100;
-      var alturaMinima = -pilarnormal.HeightRequest;
+      var alturaMaxima = -(pilarnormal.HeightRequest * 0.5);
+      var alturaMinima = -(pilarnormal.HeightRequest * 0.8);
 
       pilarvirado.TranslationY  = Random.Shared.Next((int)alturaMinima, (int)alturaMaxima);
       pilarnormal.TranslationY = pilarvirado.TranslationY + aberturaMinima + pilarnormal.HeightRequest;
@@ -116,7 +122,7 @@ protected override void OnSizeAllocated(double w, double h)
 			return false;
 	}
 
-	bool VerificaColisaoCanos()
+	bool VerificaColisaoCano()
   {
     if (VerificaColisaopilarnormal() || VerificaColisaopilarvirado())
       return true;
